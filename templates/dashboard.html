@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+
+{% block importstatic %}
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}
+
+{% block title %}
+    Quiz-Master
+{% endblock %}
+
+{% block content %}
+
+<div class="container mb-3">
+  <div class="row">
+    <div class="col-12 mb-3">
+      <div class="card">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-info">Upcomming Quizzes</h5>
+                    
+                            {% if quizzes %}
+                            
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <!-- <th scope="col">Quiz Id</th> -->
+                                    <th scope="col">Quiz Title</th>
+                                    <th scope="col">Quiz Date</th>
+                                    <th scope="col">Quiz Duration</th>
+                                    <th scope="col">Action</th>
+                                  </tr>
+                                </thead>
+                                {% for quiz in quizzes['upcoming'] %}
+                                     
+                                          
+                                          <div class="lead text-center text-md-start text-body-tertiary mb-6 mb-lg-8 font-monospace">
+                                            <tbody>
+                                              <tr>
+                                                <!-- <th scope="row">{{ quiz.id }}</th> -->
+                                                <td>{{ quiz.title }}</td>
+                                                <td>{{ quiz.date_of_quiz }}</td>
+                                                <td>{{ quiz.time_duration }}</td>
+                                                <td>
+                                                  
+                                                    <button type="button" class="btn btn-secondary pl-1 btn-sm" onclick="showQuizDetails({id: '{{ quiz.id }}', title: '{{ quiz.title }}', date_of_quiz: '{{ quiz.date_of_quiz }}', time_duration: '{{ quiz.time_duration }}', remark: '{{ quiz.remark }}'})">
+                                                      <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <!-- button that trigger a javascript function attempt-quiz -->
+                                                    <a class="btn btn-warning pl-1 btn-sm" href="{{ url_for('attempt_quiz', quiz_id=quiz.id) }}">
+                                                      <i class="fas fa-pencil-alt"></i>
+                                                    </a>
+                                                </td>
+                                              </tr>
+                                            </tbody>
+                                          
+                                          </div>
+                                {% endfor %}
+
+                               
+                              </table>
+                            {% else %}
+
+                            {% endif %}      
+                                    
+                              
+                              
+                            
+                           
+                
+                          <!-- </div> end main div of task show -->
+                          
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title text-danger">Old Quizzes</h5>
+                  {% if quizzes['old'] %}
+                            
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <!-- <th scope="col">Quiz Id</th> -->
+                                    <th scope="col">Quiz Title</th>
+                                    <th scope="col">Quiz Date</th>
+                                    <th scope="col">Quiz Duration</th>
+                                    <th scope="col">Action</th>
+                                  </tr>
+                                </thead>
+                                {% for quiz in quizzes['old'] %}
+                                     
+                                          
+                                          <div class="lead text-center text-md-start text-body-tertiary mb-6 mb-lg-8 font-monospace">
+                                            <tbody>
+                                              <tr>
+                                                <!-- <th scope="row">{{ quiz.id }}</th> -->
+                                                <td>{{ quiz.title }}</td>
+                                                <td>{{ quiz.date_of_quiz }}</td>
+                                                <td>{{ quiz.time_duration }}</td>
+                                                <td>
+                                                  <!-- button that trigger a javascript function delteTask -->
+                                                    <button type="button" class="btn btn-secondary pl-1 btn-sm" onclick="showQuizDetails({id: '{{ quiz.id }}', title: '{{ quiz.title }}', date_of_quiz: '{{ quiz.date_of_quiz }}', time_duration: '{{ quiz.time_duration }}', remark: '{{ quiz.remark }}'})">
+                                                      <i class="fas fa-eye"></i>
+                                                    </button>
+
+                                                    <a class="btn btn-warning pl-1 btn-sm visually-hidden" href="{{ url_for('attempt_quiz', quiz_id=quiz.id) }}">
+                                                      <i class="fas fa-pencil-alt"></i>
+                                                    </a>
+                                                </td>
+                                              </tr>
+                                            </tbody>
+                                          
+                                          </div>
+                                {% endfor %}
+
+                               
+                              </table>
+                            {% else %}
+
+                    {% endif %} 
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+  <!-- Modal to view the quiz details -->
+  <div class="modal fade" id="quizDetailModal" tabindex="-1" aria-labelledby="quizDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="quizDetailModalLabel">Quiz Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Quiz Id:</strong> <span id="quizId"></span></p>
+          <p><strong>Quiz Title:</strong> <span id="quizTitle"></span></p>
+          <p><strong>Quiz Date:</strong> <span id="quizDate"></span></p>
+          <p><strong>Quiz Duration:</strong> <span id="quizDuration"></span></p>
+          <p><strong>Description:</strong> <span id="quizDescription"></span></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showQuizDetails(quiz) {
+      document.getElementById('quizId').innerText = quiz.id;
+      document.getElementById('quizTitle').innerText = quiz.title;
+      document.getElementById('quizDate').innerText = quiz.date_of_quiz;
+      document.getElementById('quizDuration').innerText = quiz.time_duration;
+      document.getElementById('quizDescription').innerText = quiz.remark;
+      var quizDetailModal = new bootstrap.Modal(document.getElementById('quizDetailModal'));
+      quizDetailModal.show();
+    }
+  </script>
+</div>
+
+
+
+{% endblock %}
+

@@ -1,0 +1,26 @@
+---
+tags:
+  - Question
+summary: Delete a question
+description: Delete a question by ID.
+parameters:
+  - name: id
+    in: path
+    type: integer
+    required: true
+    description: The ID of the question to delete.
+responses:
+  200:
+    description: Question deleted successfully.
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+  404:
+    description: Question not found.
+    schema:
+      type: object
+      properties:
+        message:
+          type: string

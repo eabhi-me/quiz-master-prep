@@ -1,0 +1,37 @@
+---
+tags:
+  - User
+summary: Create a new user or users
+description: Create a single user or multiple users.
+parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      properties:
+        username:
+          type: string
+        email_address:
+          type: string
+        full_name:
+          type: string
+        password_hash:
+          type: string
+responses:
+  201:
+    description: User(s) created successfully.
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+        id:
+          type: integer
+  400:
+    description: Missing required fields or no input data provided.
+    schema:
+      type: object
+      properties:
+        message:
+          type: string

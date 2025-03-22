@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}
+View Quiz Details
+{% endblock %}
+
+{% block content %}
+<div class="container mb-3 mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h1 class="card-title">{{ quiz.title }}</h1>
+        </div>
+        <div class="card-body">
+            <p class="card-text"><strong>Chapter Name:</strong> {{ chapter_name }}</p>
+            <p class="card-text"><strong>Date Of Quiz:</strong> {{ quiz.date_of_quiz }}</p>
+            <p class="card-text"><strong>Duration of Quiz:</strong> {{ quiz.time_duration }}</p>
+            <p class="card-text"><strong>Quiz Remark:</strong> {{ quiz.remark }}</p>
+            <p class="card-text"><strong>Number of Questions:</strong> {{ nos_of_questions }}</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

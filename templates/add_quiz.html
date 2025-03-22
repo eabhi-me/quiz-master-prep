@@ -1,0 +1,30 @@
+{% block title %}
+<h3>Add Quiz</h3>
+{% endblock %}
+{% block content %}
+<div class="container pt-lg-4 me-4">
+    <form action="/quiz-master/add-quiz" method="POST" class="form-register">
+        {{ form.hidden_tag() }}
+        <!-- <h3>Add Quiz</h3> -->
+        <br>
+        {{ form.chapter_id.label() }}
+        {{ form.chapter_id(class="form-control", placeholder="Select Subject") }}
+
+        {{ form.title.label() }}
+        {{ form.title(class="form-control", placeholder="Title") }}
+
+        {{ form.date_of_quiz.label() }}
+        {{ form.date_of_quiz(class="form-control", placeholder="Date") }}
+
+        {{ form.time_duration.label() }}
+        {{ form.time_duration(class="form-control", placeholder="Time") }}
+
+        {{ form.remark.label()}}
+        {{form.remark(class="form-control", placeholder="Remark")}}
+        
+        <br>
+        {{ form.submit(class="btn btn-primary") }}
+
+    </form>
+<div>
+{% endblock %}

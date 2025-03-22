@@ -1,0 +1,33 @@
+---
+tags:
+  - Subject
+summary: Create a new subject or subjects
+description: Create a single subject or multiple subjects.
+parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+responses:
+  201:
+    description: Subject(s) created successfully.
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+        id:
+          type: integer
+  400:
+    description: Missing required fields or no input data provided.
+    schema:
+      type: object
+      properties:
+        message:
+          type: string

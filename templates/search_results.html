@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-success">Search Results</h2>
+
+    {% if results.users %}
+    <h3>Users</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Full Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in results.users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.full_name }}</td>
+                <td>{{ user.email_address }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    {% if results.chapters %}
+    <h3>Chapters</h3>
+    <ul class="list-group">
+        {% for chapter in results.chapters %}
+        <li class="list-group-item">{{ chapter.name }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if results.subjects %}
+    <h3>Subjects</h3>
+    <ul class="list-group">
+        {% for subject in results.subjects %}
+        <li class="list-group-item">{{ subject.name }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if results.quizzes %}
+    <h3>Quizzes</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Quiz Title</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for quiz in results.quizzes %}
+            <tr>
+                <td>{{ quiz.title }}</td>
+                <td><a href="{{ url_for('attempt_quiz', quiz_id=quiz.id) }}" class="btn btn-primary">Attempt</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    {% if results.questions %}
+    <h3>Questions</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Question Statement</th>
+                <th>Correct Option</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for question in results.questions %}
+            <tr>
+                <td>{{ question.question_statement }}</td>
+                <td>{{ question.correct_option }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    {% if not results.users and not results.chapters and not results.subjects and not results.quizzes and not results.questions %}
+    <div class="alert alert-warning mt-3">No results found.</div>
+    {% endif %}
+
+    <a href="{{ url_for('dashboard') }}" class="btn btn-secondary mt-3">Back to Search</a>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Environment variables and settings
+.env
+*.env
+
+# Flask-related files
+instance/
+*.db
+*.sqlite3
+
+# Log files
+*.log
+*.out
+*.err
+
+# Cache files and folders
+*.swp
+.cache/
+*.pycache/
+*.egg-info/
+pip-wheel-metadata/
+
+# Virtual environment
+venv/
+myenv/
+env/
+*.pyenv/
+myenv
+
+
+# IDE or Editor specific files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# MacOS files
+.DS_Store
+
+# Test results
+htmlcov/
+coverage.xml
+*.cover
+*.py,cover
+.tox/
+.cache/
+.nox/

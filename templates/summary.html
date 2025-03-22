@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Summary
+{% endblock %}
+
+{% block content %}
+{% if current_user.role == 'quiz-master' %}
+<div class="container mt-5 mb-5 pb-5">
+     <div class="row gy-2">
+          <div class="col-md-6">
+                <div class="card">
+                     <div class="card-body">
+                          <h2 class="mb-4 text-success">Report</h2>
+                          <ul class="list-group">
+                                <li class="list-group-item text-dark-emphasis">Total Subjects: <strong>{{ stats_master['num_subjects'] }}</strong></li>
+                                <li class="list-group-item text-dark-emphasis">Total Chapters: <strong>{{ stats_master['num_chapters'] }}</strong></li>
+                                <li class="list-group-item text-dark-emphasis">Total Quizzes: <strong>{{ stats_master['num_quizzes'] }}</strong></li>
+                                <li class="list-group-item text-dark-emphasis">Total Questions: <strong>{{ stats_master['num_questions'] }}</strong></li>
+                                <li class="list-group-item text-dark-emphasis">Total Users: <strong>{{ stats_master['num_users'] }}</strong></li>
+                          </ul>
+                     </div>
+                </div>
+          </div>
+          <div class="col-md-6 d-flex align-items-center">
+                <div class="card">
+                    <h3 class="text-center mt-2">Scores</h3>
+                     <div class="card-body">
+                          <img src="{{ url_for('static', filename='images/subject_scores_bar_chart.png') }}" alt="Quiz Statistics Graph" class="img-fluid mx-auto p-md-2" >
+                     </div>
+                </div>
+          </div>
+     </div>
+     <div class="row gy-2 mt-4">
+          <div class="col-md-6">
+                <div class="card">
+                    <h3 class="text-center mt-2">Number of User vs Subjects</h3>
+                     <div class="card-body">
+                          <img src="{{ url_for('static', filename='images/user_attempts_bar_chart.png')}}" alt="Subject Wise Scores" class="img-fluid mx-auto p-md-2">
+                     </div>
+                </div>
+          </div>
+          <div class="col-md-6 pb-5">
+                <div class="card">
+                    <h3 class="text-center mt-2">Chapter vs Scores</h3>
+                     <div class="card-body">
+                          <img src="{{ url_for('static', filename='images/quiz_scores_pie_chart.png')}}" alt="Chart" class="img-fluid mx-auto p-md-2">
+                     </div>
+                </div>
+          </div>
+     </div>
+</div>
+{% else %}
+{% endif %}
+{% endblock %}

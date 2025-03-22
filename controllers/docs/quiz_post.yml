@@ -1,0 +1,39 @@
+---
+tags:
+  - Quiz
+summary: Create a new quiz or quizzes
+description: Create a single quiz or multiple quizzes.
+parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      properties:
+        title:
+          type: string
+        chapter_id:
+          type: integer
+        date_of_quiz:
+          type: string
+        time_duration:
+          type: string
+        remark:
+          type: string
+responses:
+  201:
+    description: Quiz(zes) created successfully.
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+        id:
+          type: integer
+  400:
+    description: Missing required fields or no input data provided.
+    schema:
+      type: object
+      properties:
+        message:
+          type: string

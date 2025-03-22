@@ -1,0 +1,26 @@
+---
+tags:
+  - Chapter
+summary: Delete a chapter
+description: Delete a chapter by ID.
+parameters:
+  - name: id
+    in: path
+    type: integer
+    required: true
+    description: The ID of the chapter to delete.
+responses:
+  200:
+    description: Chapter deleted successfully.
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+  404:
+    description: Chapter not found.
+    schema:
+      type: object
+      properties:
+        message:
+          type: string

@@ -1,0 +1,36 @@
+{% block title %}
+<h3>Edit Question</h3>
+{% endblock %}
+
+{% block content %}
+<div class="container pt-lg-4 me-4">
+    <form action="{{ url_for('edit_question', id=question.id) }}" method="POST" class="form-register">
+        {{ form.hidden_tag() }}
+        <br>
+        
+        {{ form.quiz_id.label }}
+        {{ form.quiz_id(class="form-control") }}
+
+        {{ form.question_statement.label }}
+        {{ form.question_statement(class="form-control", placeholder="Question Statement") }}
+
+        {{ form.option1.label }}
+        {{ form.option1(class="form-control", placeholder="Option") }}
+
+        {{ form.option2.label }}
+        {{ form.option2(class="form-control", placeholder="Option") }}
+
+        {{ form.option3.label }}
+        {{ form.option3(class="form-control", placeholder="Option") }}
+
+        {{ form.option4.label }}
+        {{ form.option4(class="form-control", placeholder="Option") }}
+
+        {{ form.correct_option.label }}
+        {{ form.correct_option(class="form-control", placeholder="Correct Option") }}
+
+        <br>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+</div>
+{% endblock %}

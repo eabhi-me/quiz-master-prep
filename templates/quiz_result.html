@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Quiz Results</h2>
+    <h4>Score: {{ score }}</h4>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Correct Answer</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for question in questions %}
+            <tr>
+                <td>{{ question.question_statement }}</td>
+                <td>{{ question.correct_option }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Back to Dashboard</a>
+</div>
+{% endblock %}

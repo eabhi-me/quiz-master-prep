@@ -1,0 +1,39 @@
+---
+tags:
+  - Question
+summary: Create a new question or questions
+description: Create a single question or multiple questions.
+parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      properties:
+        quiz_id:
+          type: integer
+        question_statement:
+          type: string
+        options:
+          type: array
+          items:
+            type: string
+        correct_option:
+          type: string
+responses:
+  201:
+    description: Question(s) created successfully.
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+        id:
+          type: integer
+  400:
+    description: Missing required fields or no input data provided.
+    schema:
+      type: object
+      properties:
+        message:
+          type: string

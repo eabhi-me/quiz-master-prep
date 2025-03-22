@@ -1,0 +1,24 @@
+{% block title %}
+<h3>Add Chapter</h3>
+{% endblock %}
+{% block content %}
+<div class="container pt-lg-4 me-4">
+    <form action="{{ url_for('add_chapter') }}" method="POST" class="form-register">
+        {{ form.hidden_tag() }}
+        <!-- <h3>Add Chapter</h3> -->
+        <br>
+        {{ form.chapter_name.label() }}
+        {{ form.chapter_name(class="form-control", placeholder="Add Chapter") }}
+
+        {{ form.description.label() }}
+        {{ form.description(class="form-control", placeholder="Description") }}
+
+        {{ form.subject_id.label() }}
+        {{ form.subject_id(class="form-control", placeholder="Subject") }}
+
+        <br>
+        {{ form.submit(class="btn btn-primary")}}
+
+    </form>
+<div>
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block importstatic %}
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock%}
+
+{% block title %}
+    Quiz-Master
+{% endblock %}
+
+{% block content %}
+<div class="container mb-3">
+  <!-- Button to Open Modal of add subject-->
+  <div class="container text-center p-3">
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#subjectModal" onclick="loadSubjectForm()">
+      <i class="fas fa-plus"></i> Add Subject
+    </button>
+  </div>
+    <div class="row">
+        {% for subject in subjects %}
+        <div class="col-lg-6 col-md-12 mb-3">
+            <div class="card" style="max-height: 350px; overflow-y: auto;">
+                <div class="card-body">
+                        <h5 class="card-title d-flex justify-content-between">
+                        {{ subject.name }}
+                        <button class="btn btn-danger btn-sm" onclick="deleteSubject('{{ subject.id }}')">
+                          <i class="fas fa-trash-alt"></i>
+                        </button>
+                      </h5>
+
+                            {% if chapters %}
+                
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Action</th>
+                                  </tr>
+                                </thead>
+                                      {% for chapter in subject.chapters %}
+                
+                                          <div class="lead text-center text-md-start text-body-secondary mb-6 mb-lg-8 font-monospace">
+                                            <tbody>
+                                              <tr>
+                                                <th scope="row">{{ chapter.id }}</th>
+                                                <td>{{ chapter.name }}</td>
+                                                <td>{{chapter.description}}</td>
+                                                <td>
+                                                  <!-- button that trigger a javascript function delteTask -->
+                                                    <!-- <button  class="btn btn-secondary pl-1">Edit</button> -->
+                                                  <button class="btn btn-danger pl-1 btn-sm"  onclick="deleteChapter('{{ chapter.id }}')">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                  </button>
+                                                </td>
+                                              </tr>
+                                            </tbody>
+                                          
+                                          </div>
+                                        
+                                      {% endfor %}
+                              </table>
+                              {% else %}
+
+                              {% endif %}
+                              <!-- Button to Open Modal -->
+                              <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#chapterModal" onclick="loadChapterForm()">
+                                <i class="fas fa-plus"></i> Add Chapter
+                              </button>
+
+                              <!-- Bootstrap Modal -->
+                              <div class="container-fluid mt-lg-3 pt-lg-5">
+                              <div class="modal fade" id="chapterModal" tabindex="-1" aria-labelledby="chapterModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog">
+                                      <div class="modal-content">
+                                          <div class="modal-header">
+                                              <h5 class="modal-title" id="chapterModalLabel">Add New Chapter</h5>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <div class="modal-body" id="modalContentChapter">
+                                              <!-- Form will be loaded here via AJAX -->
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                            </div>
+                            
+                
+                          <!-- </div> end main div of task show -->
+                
+                </div>
+            </div>
+            <hr style="border-top: 2px solid #000; opacity: 1;">
+        </div>
+        {% endfor %}
+    </div>
+    
+
+  <!-- Bootstrap Modal of add subject-->
+  <div class="container-fluid mt-lg-3 pt-lg-5">
+  <div class="modal fade" id="subjectModal" tabindex="-1" aria-labelledby="subjectModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="subjectModalLabel">Add New Subject</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body" id="modalContentSubject">
+                  <!-- Form will be loaded here via AJAX -->
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+  
+</div>
+
+
+
+{% endblock %}

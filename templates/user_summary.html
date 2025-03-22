@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Summary
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5 pb-5">
+     <div class="row gy-2">
+          <div class="col-md-6">
+                <div class="card">
+                     <div class="card-body">
+                          <h2 class="mb-4 text-success">User details</h2>
+                          <p><strong>Name:</strong> {{ current_user.full_name }}</p>
+                          <p><strong>Email:</strong> {{ current_user.email_address }}</p>
+                          <p><strong>User ID:</strong> {{ current_user.id }}</p>
+                          <p><strong>User DOB:</strong> {{ current_user.dob }}</p>
+                          <p><strong>User Qualification:</strong> {{ current_user.qualification }}</p>
+                          <p><strong>Total Quiz Attempted:</strong> {{ user_stats_data['total_quiz_attempted'] }}</p>
+                     </div>
+                </div>
+          </div>
+          <div class="col-md-6 d-flex align-items-center">
+                <div class="card">
+                     <div class="card-body">
+                         <h3 class="text-center mt-2">Score Distribution</h3>
+                          <img src="{{ user_stats_data['graph_url'] }}" alt="Quiz Statistics Graph" class="img-fluid mx-auto p-md-2" >
+                     </div>
+                </div>
+          </div>
+     </div>
+</div>
+{% endblock %}

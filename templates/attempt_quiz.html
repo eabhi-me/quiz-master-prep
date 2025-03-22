@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="modal fade show" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Quiz Attempt</h2>
+                    <p class="ms-auto">Time Remaining: <span id="timer"></span></p>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center">Question {{ current_index + 1 }} of {{ total }}</p>
+
+                    <form method="POST" class="mx-auto" style="max-width: 600px;">
+                        {{ form.hidden_tag() }}
+                        
+                        <div class="mb-3">
+                            <h4>{{ question.question_statement }}</h4>
+                            <h5>{{ question.option }}</h5>
+                        </div>
+
+                        <div class="mb-3">
+                            {% for subfield in form.selected_option %}
+                                <div class="form-check">
+                                    {{ subfield(class="form-check-input") }} 
+                                    {{ subfield.label(class="form-check-label") }}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            {% if current_index > 0 %}
+                                {{ form.prev(class="btn btn-secondary") }}
+                            {% endif %}
+                            
+                            {% if current_index < total - 1 %}
+                                {{ form.next(class="btn btn-primary") }}
+                            {% else %}
+                                {{ form.submit(class="btn btn-success") }}
+                            {% endif %}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // Get quiz end time from Flask
+        let quizEndTime = new Date("{{ quiz_end_time }}").getTime();
+
+        function updateTimer() {
+            let now = new Date().getTime();
+            let remainingTime = quizEndTime - now;
+
+            if (remainingTime <= 0) {
+                document.getElementById("timer").innerText = "Time's up!";
+                window.location.href = "/quiz-result/{{ quiz_id }}"; // Redirect to quiz_result
+            } else {
+                let minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+                let seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+                document.getElementById("timer").innerText = minutes + "m " + seconds + "s";
+                setTimeout(updateTimer, 1000); // Update every second
+            }
+        }
+
+        updateTimer();
+    </script>
+
+{% endblock %}
+

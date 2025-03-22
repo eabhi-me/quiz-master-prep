@@ -1,0 +1,26 @@
+---
+tags:
+  - Subject
+summary: Delete a subject
+description: Delete a subject by ID.
+parameters:
+  - name: id
+    in: path
+    type: integer
+    required: true
+    description: The ID of the subject to delete.
+responses:
+  200:
+    description: Subject deleted successfully.
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+  404:
+    description: Subject not found.
+    schema:
+      type: object
+      properties:
+        message:
+          type: string

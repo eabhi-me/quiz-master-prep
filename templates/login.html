@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Login
+{% endblock%}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-6 d-none d-lg-block">
+                <img src="{{ url_for('static', filename='images/illustration-2.png') }}" alt="Graphic" class="img-fluid">
+             
+            </div>
+            <div class="col-lg-6">
+                <form method="post" class="form-register">
+                    {{ form.hidden_tag() }}
+                    <h3>Login</h3>
+                    <br>
+
+                    {{ form.email_address.label() }}
+                    {{ form.email_address(class="form-control", placeholder="Email Address ") }}
+
+                    {{ form.password.label() }}
+                    {{ form.password(class="form-control", placeholder="Password") }}
+
+                    <br>
+                    {{ form.submit(class="btn btn-primary")}}
+                    
+                </form>
+                <br/>
+                    
+                <h5>Not a user? Register Here</h5>
+                <button class="btn btn-outline-success">
+                    <a href="{{url_for('register')}}" style="text-decoration: none; color: black;">Register</a>
+                </button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

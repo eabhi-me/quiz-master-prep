@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+
+{% block importstatic %}
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}
+
+{% block title %}
+    Quiz-Master
+{% endblock %}
+
+{% block content %}
+<div class="container mb-3">
+  <!-- Button to Open Modal of add quiz -->
+   <div class="container text-center p-3">
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#quizModal" onclick="loadQuizForm()">
+      <i class="fas fa-plus"></i> Add Quiz
+    </button>
+   </div>
+  
+    <div class="row">
+        {% for quiz in quizzes %}
+        <div class="col-lg-6 col-md-12 mb-3">
+            <div class="card" style="max-height: 350px; overflow-y: auto;">
+                <div class="card-body">
+                    <h5 class="card-title d-flex justify-content-between align-items-center">
+                      {{ quiz.title }}
+                      <div>
+                    <button class="btn btn-secondary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#quizEditModal" onclick="editQuiz('{{ quiz.id }}')">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                      <button class="btn btn-danger btn-sm" onclick="deleteQuiz('{{ quiz.id }}')">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                      </div>
+                    </h5>
+                            {% if quiz %}
+                
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Quiz Id</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Action</th>
+                                  </tr>
+                                </thead>
+                                      {% for question in quiz.questions %}
+                
+                                          <div class="lead text-center text-md-start text-body-secondary mb-6 mb-lg-8 font-monospace">
+                                            <tbody>
+                                              <tr>
+                                                <th scope="row">{{ question.id }}</th>
+                                                <td>{{ quiz.id }}</td>
+                                                <td>{{question.question_statement}}</td>
+                                                <td>
+                                                  <!-- button that trigger a javascript function delteTask -->
+                                                     <!-- Button to Open Modal -->
+                                                  <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#questionEditModal" onclick="editQuestion('{{ question.id }}')">
+                                                    <i class="fas fa-edit"></i>
+                                                  </button>
+                                                  <button class="btn btn-outline-danger btn-sm" onclick="deleteQuestion('{{ question.id }}')">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                  </button>
+                                                </td>
+                                              </tr>
+                                            </tbody>
+                                          
+                                          </div>
+                                        
+                                      {% endfor %}
+                              </table>
+                              <!-- Button to Open Modal -->
+                              <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#questionModal" onclick="loadQuestionForm()">
+                                <i class="fas fa-plus"></i> Add Question
+                              </button>
+                              <!----- Add questioin model--->
+                              <!-- Bootstrap Modal -->
+                              <div class="container-fluid mt-lg-3 pt-lg-5">
+                              <div class="modal fade" id="questionModal" tabindex="-1" aria-labelledby="questionModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog">
+                                      <div class="modal-content">
+                                          <div class="modal-header">
+                                              <h5 class="modal-title" id="quesstionModalLabel">Add Question</h5>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <div class="modal-body" id="modalContentQuestion">
+                                              <!-- Form will be loaded here via AJAX -->
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                            </div>
+
+
+                              <!---Question edit model-->
+                              <!-- Bootstrap Modal -->
+                              <div class="container-fluid mt-lg-3 pt-lg-5">
+                              <div class="modal fade" id="questionEditModal" tabindex="-1" aria-labelledby="questionEditModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog">
+                                      <div class="modal-content">
+                                          <div class="modal-header">
+                                              <h5 class="modal-title" id="questionEditModalLabel">Edit Question</h5>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <div class="modal-body" id="modalContentEditQuestion">
+                                              <!-- Form will be loaded here via AJAX -->
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                            </div>
+                            
+                            {% else %}
+
+                            {% endif %}
+                
+                          <!-- </div> end main div of quiz show -->
+                          
+                </div>
+            </div>
+            <hr style="border-top: 2px solid #000; opacity: 1;">
+        </div>
+        {% endfor %}
+        
+    </div>
+    
+    <!-------Add Quiz Model------->
+    <!-- Bootstrap Modal -->
+    <div class="container-fluid mt-lg-3 pt-lg-5">
+    <div class="modal fade" id="quizModal" tabindex="-1" aria-labelledby="quizModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="quizModalLabel">Add quiz</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalContentQuiz">
+                    <!-- Form will be loaded here via AJAX -->
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <!---- Edit quiz model----->
+  <div class="container-fluid mt-lg-3 pt-lg-5">
+    <div class="modal fade" id="quizEditModal" tabindex="-1" aria-labelledby="quizEditModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="quizEditModalLabel">Edit Quiz</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalContentEditQuiz">
+                    <!-- Form will be loaded here via AJAX -->
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+</div>
+  
+</div>
+
+
+
+{% endblock %}

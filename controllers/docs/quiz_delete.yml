@@ -1,0 +1,26 @@
+---
+tags:
+  - Quiz
+summary: Delete a quiz
+description: Delete a quiz by ID.
+parameters:
+  - name: id
+    in: path
+    type: integer
+    required: true
+    description: The ID of the quiz to delete.
+responses:
+  200:
+    description: Quiz deleted successfully.
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+  404:
+    description: Quiz not found.
+    schema:
+      type: object
+      properties:
+        message:
+          type: string

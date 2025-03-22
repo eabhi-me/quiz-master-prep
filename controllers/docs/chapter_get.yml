@@ -1,0 +1,32 @@
+---
+tags:
+  - Chapter
+summary: Get chapter(s)
+description: Retrieve a single chapter by ID or a list of all chapters.
+parameters:
+  - name: id
+    in: path
+    type: integer
+    required: false
+    description: The ID of the chapter to retrieve.
+responses:
+  200:
+    description: A single chapter or a list of chapters.
+    schema:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        subject_id:
+          type: integer
+        description:
+          type: string
+  404:
+    description: Chapter not found.
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
