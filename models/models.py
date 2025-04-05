@@ -2,6 +2,10 @@ from app import app, db, bcrypt, login_manager
 from datetime import datetime
 from pytz import timezone
 from flask_bcrypt import generate_password_hash, check_password_hash
+# seting the environment
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 # Importig the library that manage all user login method
 from flask_login import UserMixin
@@ -101,13 +105,13 @@ with app.app_context():
                 email_address='quizmaster@quiz.com',
                 username='quizmaster@quiz.com',
                 full_name='Quiz Master',
-                password_hash=generate_password_hash('inovaix'),
+                password_hash=generate_password_hash(os.environ.get('SECRET_KEY')),
                 role = 'quiz-master'),
                 User(
                 email_address='dummy@quiz.com',
                 username='dummy@quiz.com',
                 full_name='Dummy',
-                password_hash=generate_password_hash('inovaix'),
+                password_hash=generate_password_hash(os.environ.get('SECRET_KEY')),
                 role = 'user')
             ]
             db.session.bulk_save_objects(admin_user)

@@ -95,15 +95,17 @@ The API documentation is available at the following link:
 
 ## Error Handling
 - **404 Not Found**: Custom error page for non-existent routes.
-- 
+
 ## Database Schema
 ![Database Schema](static/images/ERD.png)
 
-## Report
-[Report](report_23f3002662.pdf)
+## IMG
+![alt text](static\images\demo_view.png)
 
 ## Video
-https://drive.google.com/file/d/1tUxF4TBnxbuzuWAuLxxvVzAxjZI-qlcu/view?usp=drive_link 
+[Demo](https://drive.google.com/file/d/1G0daZUMvVMMxDb9tJ6JSw2CJwHmIZEJ7/view?usp=drive_link)
+
+<iframe width="560" height="315" src="https://drive.google.com/file/d/1G0daZUMvVMMxDb9tJ6JSw2CJwHmIZEJ7/view?usp=sharing" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## Contributing
 1. Fork the repository.
