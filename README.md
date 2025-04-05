@@ -100,12 +100,11 @@ The API documentation is available at the following link:
 ![Database Schema](static/images/ERD.png)
 
 ## IMG
-![alt text](static\images\demo_view.png)
+![View](static/images/demo_view.png)
 
 ## Video
 [Demo](https://drive.google.com/file/d/1G0daZUMvVMMxDb9tJ6JSw2CJwHmIZEJ7/view?usp=drive_link)
 
-<iframe width="560" height="315" src="https://drive.google.com/file/d/1G0daZUMvVMMxDb9tJ6JSw2CJwHmIZEJ7/view?usp=sharing" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## Contributing
 1. Fork the repository.
