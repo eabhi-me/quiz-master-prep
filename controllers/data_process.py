@@ -5,33 +5,62 @@ import base64
 import matplotlib
 matplotlib.use('Agg')  # Use a non-GUI backend
 import matplotlib.pyplot as plt
+# def stats_master_fun():
+#     # Connect to the SQLite database
+#     conn = sqlite3.connect("instance\\quiz_master.db") 
+#     cursor = conn.cursor()
+
+#     # Read data into a Pandas DataFrame
+#     # Query to get the number of subjects, chapters, quizzes, and users
+#     num_subjects_query = "SELECT COUNT(*) as num_subjects FROM subjects"
+#     num_chapters_query = "SELECT COUNT(*) as num_chapters FROM chapters"
+#     num_quizzes_query = "SELECT COUNT(*) as num_quizzes FROM quizzes"
+#     num_users_query = "SELECT COUNT(*) as num_users FROM users where role='user'"
+#     num_questions_query = "SELECT COUNT(*) as num_questions FROM questions"
+
+#     # Execute the queries and fetch the results
+#     try:
+#         num_subjects = cursor.execute(num_subjects_query).fetchone()[0]
+#     except sqlite3.OperationalError as e:
+#         print(f"Error: {e}")
+#         num_subjects = 0
+#     num_chapters = cursor.execute(num_chapters_query).fetchone()[0]
+#     num_quizzes = cursor.execute(num_quizzes_query).fetchone()[0]
+#     num_users = cursor.execute(num_users_query).fetchone()[0]
+#     num_questions = cursor.execute(num_questions_query).fetchone()[0]
+
+#     stats_master = {
+#         "num_subjects": num_subjects,
+#         "num_chapters": num_chapters,
+#         "num_quizzes": num_quizzes,
+#         "num_users": num_users,
+#         "num_questions": num_questions
+#     }
+
 def stats_master_fun():
     # Connect to the SQLite database
     conn = sqlite3.connect("instance\\quiz_master.db") 
     cursor = conn.cursor()
 
-    # Read data into a Pandas DataFrame
-    # Query to get the number of subjects, chapters, quizzes, and users
-    num_subjects_query = "SELECT COUNT(*) as num_subjects FROM subjects"
-    num_chapters_query = "SELECT COUNT(*) as num_chapters FROM chapters"
-    num_quizzes_query = "SELECT COUNT(*) as num_quizzes FROM quizzes"
-    num_users_query = "SELECT COUNT(*) as num_users FROM users where role='user'"
-    num_questions_query = "SELECT COUNT(*) as num_questions FROM questions"
-
-    # Execute the queries and fetch the results
-    num_subjects = cursor.execute(num_subjects_query).fetchone()[0]
-    num_chapters = cursor.execute(num_chapters_query).fetchone()[0]
-    num_quizzes = cursor.execute(num_quizzes_query).fetchone()[0]
-    num_users = cursor.execute(num_users_query).fetchone()[0]
-    num_questions = cursor.execute(num_questions_query).fetchone()[0]
-
-    stats_master = {
-        "num_subjects": num_subjects,
-        "num_chapters": num_chapters,
-        "num_quizzes": num_quizzes,
-        "num_users": num_users,
-        "num_questions": num_questions
+    # Queries
+    queries = {
+        "num_subjects": "SELECT COUNT(*) as num_subjects FROM subjects",
+        "num_chapters": "SELECT COUNT(*) as num_chapters FROM chapters",
+        "num_quizzes": "SELECT COUNT(*) as num_quizzes FROM quizzes",
+        "num_users": "SELECT COUNT(*) as num_users FROM users where role='user'",
+        "num_questions": "SELECT COUNT(*) as num_questions FROM questions"
     }
+
+    stats_master = {}
+    for key, query in queries.items():
+        try:
+            stats_master[key] = cursor.execute(query).fetchone()[0]
+        except sqlite3.OperationalError as e:
+            print(f"Error executing query for {key}: {e}")
+            stats_master[key] = 0
+
+    # conn.close()
+    # return stats_master
 
     query = "SELECT full_name as user_name, quizzes.title as quiz_title, chapters.name as chapter_name, subjects.name as subject_name, total_scored from users, quizzes, chapters, subjects, scores where users.id=scores.user_id and quizzes.id=scores.quiz_id and quizzes.chapter_id = chapters.id and chapters.subject_id=subjects.id"
     df = pd.read_sql_query(query, conn)
